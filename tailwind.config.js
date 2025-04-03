@@ -1,12 +1,11 @@
-/** @type {import('tailwindcss').Config} **/
+/** @type
+{import('tailwindcss').Config} */
 module.exports = {
-content: ["./src/**/.{js,jsx,ts,tsx}"],
+content: [
+"./src/**/.{html,js,jsx,ts,tsx}", // Ensure all your React files are included
+],
 theme: {
-extend: {
-colors: {
-redButton: "#e63946"
-}
-},
+extend: {},
 },
 plugins: [],
 };
