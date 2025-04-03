@@ -1,6 +1,24 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
-import PaymentPage from "./PaymentPage";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainPage from "./pages/MainPage";
+import PaymentPage from "./pages/PaymentPage";
+
+function App() {
+return (
+<Router>
+<Routes>
+<Route path="/" element={<MainPage />} />
+<Route path="/payment" element={<PaymentPage />} />
+</Routes>
+</Router>
+);
+}
+
+export default App;
+Morty
+Just now
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const cities = ["Москва", "Санкт-Петербург", "Казань"];
 const goods = [
@@ -10,7 +28,6 @@ const goods = [
 ];
 
 function MainPage() {
-const [selectedCity, setSelectedCity] = useState(cities[0]);
 const navigate = useNavigate();
 
 return (
@@ -30,8 +47,7 @@ return (
     <label className="block mb-2">Выберите город:</label>
     <select
       className="w-full p-2 rounded bg-gray-800 text-white shadow-lg"
-      value={selectedCity}
-      onChange={(e) => setSelectedCity(e.target.value)}
+      value={cities[0]}
     >
       {cities.map((city) => (
         <option key={city} value={city}>
@@ -63,15 +79,4 @@ return (
 );
 }
 
-function App() {
-return (
-<Router>
-<Routes>
-<Route path="/" element={<MainPage />} />
-<Route path="/payment" element={<PaymentPage />} />
-</Routes>
-</Router>
-);
-}
-
-export default App;
+export default MainPage;
