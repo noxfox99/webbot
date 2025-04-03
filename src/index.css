@@ -1,8 +1,22 @@
+/* Tailwind base styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles (optional) */
+/* Custom styles */
 body {
 font-family: 'Arial', sans-serif;
+transition: background-color 0.3s ease;
+}
+
+/* Dark mode background /
+body.dark {
+background-color: #1f2937; / Dark background color */
+color: white;
+}
+
+/* Light mode background /
+body {
+background-color: #f9fafb; / Light background color /
+color: #333; / Dark text color */
 }
