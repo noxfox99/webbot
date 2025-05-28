@@ -24,6 +24,14 @@ const cityDistricts = {
   "Казань": ["Вахитовский", "Кировский", "Московский", "Приволжский", "Советский"]
 };
 
+const phrases = [
+  "Купи специи в своем городе",
+  "Готовь на максималках",
+  "Развивай кухонные способности",
+  "Наши специи лучшие на рынке",
+  "Удиви родных, приготовь изысканное"
+];
+
 function MainPage() {
   const navigate = useNavigate();
   const [currentPhrase, setCurrentPhrase] = useState(0);
@@ -90,21 +98,28 @@ function MainPage() {
         <button className="bg-gray-800 hover:bg-gray-700 text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors">Меню</button>
       </div>
 
-      <div className="w-[300px] h-[200px] p-[10px] bg-gradient-to-br from-orange-100 to-white border-2 border-orange-300 rounded-xl shadow-lg mb-6 flex items-center justify-center text-center">
-        <p className={`text-gray-800 text-[14px] font-medium transition-opacity duration-500 ${animate ? 'opacity-100' : 'opacity-0'}`}>
-          {phrases[currentPhrase]}
-        </p>
+      {/* Анимированный текстовый блок с волной */}
+      <div className="w-full mb-6 p-4 bg-gradient-to-r from-orange-100 to-orange-50 rounded-xl shadow-lg">
+        <div className="flex justify-center">
+          <div className="w-[300px] h-[200px] flex items-center justify-center">
+            <p className={`text-center text-gray-800 text-lg font-medium transition-all duration-1000 ${animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              {phrases[currentPhrase]}
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* Блок выбора города */}
-      <div className="w-full max-w-md mb-4 p-4 bg-orange-500 text-white rounded-lg shadow-md">
-        <h2 className="text-lg font-bold mb-3 text-center">Выбери город</h2>
-        <div className="grid grid-cols-3 gap-2">
+      {/* Блок выбора города на всю ширину */}
+      <div className="w-full mb-4 p-4 bg-orange-500 rounded-lg shadow-md">
+        <h2 className="text-lg font-bold mb-3 text-center text-white">Выбери город</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-2">
           {allCities.map((city) => (
             <button
               key={city}
               onClick={() => handleCityClick(city)}
-              className={`p-2 rounded-md text-sm ${selectedCity === city ? 'bg-black text-white' : 'bg-orange-100 text-orange-800 hover:bg-orange-200'}`}
+              className={`p-2 rounded-md text-sm transition-colors ${selectedCity === city ? 
+                'bg-black text-white shadow-inner' : 
+                'bg-orange-100 text-orange-800 hover:bg-orange-200 shadow'}`}
             >
               {city}
             </button>
@@ -130,7 +145,9 @@ function MainPage() {
               <button
                 onClick={() => handleBuyClick(product)}
                 disabled={!product.available}
-                className={`ml-3 px-4 py-2 rounded-lg shadow-md ${product.available ? 'bg-orange-600 hover:bg-orange-700 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+                className={`ml-3 px-4 py-2 rounded-lg shadow-md transition-colors ${product.available ? 
+                  'bg-orange-600 hover:bg-orange-700 text-white' : 
+                  'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
               >
                 Купить
               </button>
@@ -148,7 +165,7 @@ function MainPage() {
               <button
                 key={district}
                 onClick={() => navigate("/payment")}
-                className="p-2 bg-orange-100 hover:bg-orange-200 text-orange-800 rounded-md text-sm"
+                className="p-2 bg-orange-100 hover:bg-orange-200 text-orange-800 rounded-md text-sm transition-colors"
               >
                 {district}
               </button>
@@ -172,13 +189,5 @@ function NavButton({ icon, text }) {
     </button>
   );
 }
-
-const phrases = [
-  "Купи специи в своем городе",
-  "Готовь на максималках",
-  "Развивай кухонные способности",
-  "Наши специи лучшие на рынке",
-  "Удиви родных, приготовь изысканное"
-];
 
 export default MainPage;
