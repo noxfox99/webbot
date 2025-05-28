@@ -99,13 +99,55 @@ function MainPage() {
       </div>
 
       {/* Анимированный текстовый блок с волной */}
-      <div className="w-full mb-6 p-4 bg-gradient-to-r from-orange-100 to-orange-50 rounded-xl shadow-lg">
-        <div className="flex justify-center">
-          <div className="w-[300px] h-[200px] flex items-center justify-center">
-            <p className={`text-center text-gray-800 text-lg font-medium transition-all duration-1000 ${animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              {phrases[currentPhrase]}
-            </p>
-          </div>
+     function MainPage() {
+  const navigate = useNavigate();
+  const [currentPhrase, setCurrentPhrase] = useState(0);
+  const [animate, setAnimate] = useState(true);
+  const [blockWidth, setBlockWidth] = useState("auto");
+  const textRef = useRef(null);
+  // ... (остальные состояния остаются такими же)
+
+  useEffect(() => {
+    // Функция для обновления ширины блока
+    const updateBlockWidth = () => {
+      if (textRef.current) {
+        const width = textRef.current.offsetWidth;
+        setBlockWidth(`${Math.min(width + 40, 500)}px`); // +40px для padding, max 500px
+      }
+    };
+
+    const interval = setInterval(() => {
+      setAnimate(false);
+      setTimeout(() => {
+        setCurrentPhrase((prev) => (prev + 1) % phrases.length);
+        setTimeout(updateBlockWidth, 10); // Небольшая задержка для обновления DOM
+        setAnimate(true);
+      }, 500);
+    }, 3000);
+
+    // Инициализация ширины
+    updateBlockWidth();
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="min-h-screen flex flex-col items-center p-5 bg-gradient-to-b from-orange-50 to-white">
+      {/* ... (остальной код хедера и кнопок остается без изменений) */}
+
+      {/* Анимированный текстовый блок с динамической шириной */}
+      <div 
+        className="mb-6 p-5 bg-gradient-to-r from-orange-100 to-orange-50 rounded-xl shadow-lg transition-all duration-500 ease-in-out"
+        style={{ width: blockWidth, minHeight: "200px" }}
+      >
+        <div className="flex items-center justify-center h-full">
+          <p 
+            ref={textRef}
+            className={`text-center text-gray-800 text-xl font-bold transition-all duration-500 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+            style={{ fontWeight: 575 }} // Увеличиваем жирность на ~15% (normal=400, bold=700)
+          >
+            {phrases[currentPhrase]}
+          </p>
         </div>
       </div>
 
