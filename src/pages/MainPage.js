@@ -1,26 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const cities = ["Москва", "Санкт-Петербург", "Казань"];
-const regions = ["Центральный", "Южный", "Северо-Западный", "Дальневосточный"];
-const goods = [
-  { name: "Товар 1", price: "100₽" },
-  { name: "Товар 2", price: "200₽" },
-  { name: "Товар 3", price: "300₽" },
+const allCities = [
+  "Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань",
+  "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону",
+  "Уфа", "Красноярск", "Пермь", "Воронеж", "Волгоград",
+  "Краснодар", "Саратов", "Тюмень", "Тольятти", "Ижевск",
+  "Барнаул", "Ульяновск", "Иркутск", "Хабаровск", "Ярославль",
+  "Владивосток", "Махачкала", "Томск", "Оренбург", "Кемерово"
 ];
 
-const phrases = [
-  "Купи специи в своем городе",
-  "Готовь на максималках",
-  "Развивай кухонные способности",
-  "Наши специи лучшие на рынке",
-  "Удиви родных, приготовь изысканное"
+const products = [
+  { id: 1, name: "Корица", price: "200₽", available: true, logo: "🟫" },
+  { id: 2, name: "Куркума", price: "150₽", available: true, logo: "🟨" },
+  { id: 3, name: "Кардамон", price: "300₽", available: false, logo: "🟩" },
+  { id: 4, name: "Имбирь", price: "180₽", available: true, logo: "🟧" },
+  { id: 5, name: "Гвоздика", price: "220₽", available: true, logo: "🟥" }
 ];
+
+const cityDistricts = {
+  "Москва": ["Центральный", "Северный", "Северо-Восточный", "Восточный", "Юго-Восточный"],
+  "Санкт-Петербург": ["Адмиралтейский", "Василеостровский", "Выборгский", "Калининский", "Петроградский"],
+  "Казань": ["Вахитовский", "Кировский", "Московский", "Приволжский", "Советский"]
+};
 
 function MainPage() {
   const navigate = useNavigate();
   const [currentPhrase, setCurrentPhrase] = useState(0);
   const [animate, setAnimate] = useState(true);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [showProducts, setShowProducts] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showDistricts, setShowDistricts] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,6 +44,18 @@ function MainPage() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleCityClick = (city) => {
+    setSelectedCity(city);
+    setShowProducts(true);
+    setSelectedProduct(null);
+    setShowDistricts(false);
+  };
+
+  const handleBuyClick = (product) => {
+    setSelectedProduct(product);
+    setShowDistricts(true);
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center p-5 bg-gradient-to-b from-orange-50 to-white">
@@ -67,49 +90,72 @@ function MainPage() {
         <button className="bg-gray-800 hover:bg-gray-700 text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors">Меню</button>
       </div>
 
-      {/* Новый анимированный текстовый блок */}
       <div className="w-[300px] h-[200px] p-[10px] bg-gradient-to-br from-orange-100 to-white border-2 border-orange-300 rounded-xl shadow-lg mb-6 flex items-center justify-center text-center">
         <p className={`text-gray-800 text-[14px] font-medium transition-opacity duration-500 ${animate ? 'opacity-100' : 'opacity-0'}`}>
           {phrases[currentPhrase]}
         </p>
       </div>
 
-      <div className="w-full max-w-md mb-6">
-        <label className="block mb-2 text-gray-800 font-medium">Выберите город:</label>
-        <select className="w-full p-2 rounded-lg bg-gray-800 text-white shadow-md focus:ring-2 focus:ring-orange-500">
-          {cities.map((city) => (
-            <option key={city} value={city}>
-              {city}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="w-full max-w-md mb-6">
-        <label className="block mb-2 text-gray-800 font-medium">Выберите регион:</label>
-        <select className="w-full p-2 rounded-lg bg-gray-800 text-white shadow-md focus:ring-2 focus:ring-orange-500">
-          {regions.map((region) => (
-            <option key={region} value={region}>
-              {region}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="w-full max-w-md space-y-3 overflow-y-auto">
-        {goods.map((item, index) => (
-          <div key={index} className="flex justify-between items-center p-4 bg-white rounded-lg shadow-md border border-orange-100 hover:shadow-lg transition-shadow">
-            <span className="text-gray-800 font-medium">{item.name}</span>
-            <span className="text-orange-600 font-bold">{item.price}</span>
+      {/* Блок выбора города */}
+      <div className="w-full max-w-md mb-4 p-4 bg-orange-500 text-white rounded-lg shadow-md">
+        <h2 className="text-lg font-bold mb-3 text-center">Выбери город</h2>
+        <div className="grid grid-cols-3 gap-2">
+          {allCities.map((city) => (
             <button
-              className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg shadow-md transition-colors"
-              onClick={() => navigate("/payment")}
+              key={city}
+              onClick={() => handleCityClick(city)}
+              className={`p-2 rounded-md text-sm ${selectedCity === city ? 'bg-black text-white' : 'bg-orange-100 text-orange-800 hover:bg-orange-200'}`}
             >
-              Купить
+              {city}
             </button>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+
+      {/* Блок товаров */}
+      {showProducts && selectedCity && (
+        <div className="w-full max-w-md mb-4">
+          {products.map((product) => (
+            <div key={product.id} className="flex items-center justify-between p-3 mb-2 bg-white rounded-lg shadow-md border border-orange-100">
+              <div className="text-2xl mr-3">{product.logo}</div>
+              <div className="flex-grow">
+                <h3 className="font-bold text-gray-800">{product.name}</h3>
+                <div className="flex justify-between">
+                  <span className="text-orange-600 font-bold">{product.price}</span>
+                  <span className={`text-sm ${product.available ? 'text-green-600' : 'text-red-600'}`}>
+                    {product.available ? 'Есть' : 'Нет'}
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => handleBuyClick(product)}
+                disabled={!product.available}
+                className={`ml-3 px-4 py-2 rounded-lg shadow-md ${product.available ? 'bg-orange-600 hover:bg-orange-700 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+              >
+                Купить
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Блок районов */}
+      {showDistricts && selectedCity && selectedProduct && (
+        <div className="w-full max-w-md mb-6 p-4 bg-orange-50 rounded-lg shadow-md border border-orange-200">
+          <h3 className="font-bold text-gray-800 mb-2">Выберите район в {selectedCity}:</h3>
+          <div className="grid grid-cols-2 gap-2">
+            {cityDistricts[selectedCity]?.map((district) => (
+              <button
+                key={district}
+                onClick={() => navigate("/payment")}
+                className="p-2 bg-orange-100 hover:bg-orange-200 text-orange-800 rounded-md text-sm"
+              >
+                {district}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <footer className="w-full bg-gradient-to-r from-gray-800 to-orange-600 p-4 mt-8 text-center text-white rounded-lg shadow-xl">
         © 2025 Spice Market - Все права защищены
@@ -126,5 +172,13 @@ function NavButton({ icon, text }) {
     </button>
   );
 }
+
+const phrases = [
+  "Купи специи в своем городе",
+  "Готовь на максималках",
+  "Развивай кухонные способности",
+  "Наши специи лучшие на рынке",
+  "Удиви родных, приготовь изысканное"
+];
 
 export default MainPage;
