@@ -116,6 +116,13 @@ function MainPage() {
   const handleBuyClick = (product) => {
     setSelectedProduct(product);
     setShowDistricts(true);
+    // Navigate directly to payment page
+    navigate("/payment", { 
+      state: { 
+        product: product,
+        city: selectedCity 
+      } 
+    });
   };
 
   return (
