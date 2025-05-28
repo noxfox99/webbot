@@ -86,7 +86,7 @@ function MainPage() {
   return (
     <div className="min-h-screen flex flex-col items-center p-5 bg-[#f8f5f2] font-sans">
       {/* Хедер в стиле photobunker.pro */}
-      <header className="w-full bg-[#2a2a2a] p-4 mb-6 rounded-lg shadow-md border-b-4 border-[#d4a762]">
+      <header className="w-full bg-[#222] p-4 mb-6 rounded-lg shadow-md border-b-2 border-[#d4a762]">
         <div className="flex flex-col items-center">
           <div className="w-full flex justify-between items-center mb-3">
             <div className="flex space-x-4">
@@ -119,7 +119,7 @@ function MainPage() {
         <button className="bg-[#d4a762] hover:bg-[#c29554] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium">
           Регистрация
         </button>
-        <button className="bg-[#2a2a2a] hover:bg-[#3a3a3a] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium">
+        <button className="bg-[#222] hover:bg-[#333] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium">
           Меню
         </button>
       </div>
@@ -127,12 +127,12 @@ function MainPage() {
       {/* Анимированный текстовый блок */}
       <div 
         ref={containerRef}
-        className="mb-6 flex items-center justify-center bg-white rounded-lg shadow-md transition-all duration-500 ease-in-out overflow-hidden border-2 border-[#d4a762]"
+        className="mb-6 flex items-center justify-center bg-white rounded-lg shadow-md transition-all duration-500 ease-in-out overflow-hidden border border-[#ddd]"
         style={{ padding: '20px', minWidth: '100px' }}
       >
         <p 
           ref={textRef}
-          className={`text-center text-[#2a2a2a] transition-all duration-500 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} font-serif`}
+          className={`text-center text-[#222] transition-all duration-500 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} font-serif`}
           style={{ 
             fontSize: '1.5rem', 
             fontWeight: 600,
@@ -143,20 +143,20 @@ function MainPage() {
         </p>
       </div>
 
-      {/* Блок выбора города */}
-      <div className="w-full mb-4 p-4 bg-white rounded-lg shadow-md border-2 border-[#d4a762]">
-        <h2 className="text-lg font-bold mb-3 text-center text-[#2a2a2a] font-serif">Выбери город</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-2">
-          {allCities.map((city) => (
-            <button
-              key={city}
-              onClick={() => handleCityClick(city)}
-              className={`p-2 rounded-md text-sm transition-colors font-medium ${selectedCity === city ? 
-                'bg-[#d4a762] text-white shadow-inner' : 
-                'bg-[#f0e6d6] text-[#2a2a2a] hover:bg-[#e0d6c6] shadow'}`}
-            >
-              {city}
-            </button>
+      {/* Блок выбора города (новый вариант) */}
+      <div className="w-full mb-4 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
+        <h2 className="text-lg font-bold mb-3 text-center text-[#222] font-serif">Выбери город</h2>
+        <div className="flex flex-wrap justify-center gap-2">
+          {allCities.map((city, index) => (
+            <React.Fragment key={city}>
+              <span 
+                onClick={() => handleCityClick(city)}
+                className={`cursor-pointer px-2 py-1 rounded transition-colors ${selectedCity === city ? 'text-[#d4a762] font-bold' : 'text-[#222] hover:text-[#d4a762]'}`}
+              >
+                {city}
+              </span>
+              {index < allCities.length - 1 && <span className="text-[#999]">•</span>}
+            </React.Fragment>
           ))}
         </div>
       </div>
@@ -165,10 +165,10 @@ function MainPage() {
       {showProducts && selectedCity && (
         <div className="w-full max-w-md mb-4">
           {products.map((product) => (
-            <div key={product.id} className="flex items-center justify-between p-3 mb-2 bg-white rounded-lg shadow-md border-2 border-[#f0e6d6] hover:border-[#d4a762] transition-colors">
+            <div key={product.id} className="flex items-center justify-between p-3 mb-2 bg-white rounded-lg shadow-md border border-[#ddd] hover:border-[#d4a762] transition-colors">
               <div className="text-2xl mr-3">{product.logo}</div>
               <div className="flex-grow">
-                <h3 className="font-bold text-[#2a2a2a] font-serif">{product.name}</h3>
+                <h3 className="font-bold text-[#222] font-serif">{product.name}</h3>
                 <div className="flex justify-between">
                   <span className="text-[#d4a762] font-bold">{product.price}</span>
                   <span className={`text-sm ${product.available ? 'text-green-600' : 'text-red-600'}`}>
@@ -192,14 +192,14 @@ function MainPage() {
 
       {/* Блок районов */}
       {showDistricts && selectedCity && selectedProduct && (
-        <div className="w-full max-w-md mb-6 p-4 bg-white rounded-lg shadow-md border-2 border-[#f0e6d6]">
-          <h3 className="font-bold text-[#2a2a2a] mb-2 font-serif">Выберите район в {selectedCity}:</h3>
+        <div className="w-full max-w-md mb-6 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
+          <h3 className="font-bold text-[#222] mb-2 font-serif">Выберите район в {selectedCity}:</h3>
           <div className="grid grid-cols-2 gap-2">
             {cityDistricts[selectedCity]?.map((district) => (
               <button
                 key={district}
                 onClick={() => navigate("/payment")}
-                className="p-2 bg-[#f0e6d6] hover:bg-[#d4a762] hover:text-white text-[#2a2a2a] rounded-md text-sm transition-colors font-medium"
+                className="p-2 bg-[#f8f5f2] hover:bg-[#d4a762] hover:text-white text-[#222] rounded-md text-sm transition-colors font-medium"
               >
                 {district}
               </button>
@@ -209,7 +209,7 @@ function MainPage() {
       )}
 
       {/* Футер */}
-      <footer className="w-full bg-[#2a2a2a] p-4 mt-8 text-center text-white rounded-lg shadow-md border-t-4 border-[#d4a762] font-serif">
+      <footer className="w-full bg-[#222] p-4 mt-8 text-center text-white rounded-lg shadow-md border-t-2 border-[#d4a762] font-serif">
         © 2025 Spice Market - Все права защищены
       </footer>
     </div>
