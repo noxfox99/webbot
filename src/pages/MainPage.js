@@ -1,52 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const allCities = [
   "Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань",
-  "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону"
+  "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону",
+  "Уфа", "Красноярск", "Пермь", "Воронеж", "Волгоград",
+  "Краснодар", "Саратов", "Тюмень", "Тольятти", "Ижевск",
+  "Барнаул", "Ульяновск", "Иркутск", "Хабаровск", "Ярославль",
+  "Владивосток", "Махачкала", "Томск", "Оренбург", "Кемерово"
 ];
 
 const products = [
-  { 
-    id: 1, 
-    name: "Корица цейлонская", 
-    price: "450₽", 
-    available: true, 
-    image: "https://via.placeholder.com/300x200?text=Корица",
-    description: "Настоящая цейлонская корица высшего качества" 
-  },
-  { 
-    id: 2, 
-    name: "Куркума индийская", 
-    price: "320₽", 
-    available: true, 
-    image: "https://via.placeholder.com/300x200?text=Куркума",
-    description: "Яркая ароматная куркума из Индии" 
-  },
-  { 
-    id: 3, 
-    name: "Кардамон зеленый", 
-    price: "680₽", 
-    available: true, 
-    image: "https://via.placeholder.com/300x200?text=Кардамон",
-    description: "Свежий зеленый кардамон с насыщенным ароматом" 
-  },
-  { 
-    id: 4, 
-    name: "Имбирь молотый", 
-    price: "290₽", 
-    available: true, 
-    image: "https://via.placeholder.com/300x200?text=Имбирь",
-    description: "Острый ароматный молотый имбирь" 
-  },
-  { 
-    id: 5, 
-    name: "Гвоздика целая", 
-    price: "380₽", 
-    available: true, 
-    image: "https://via.placeholder.com/300x200?text=Гвоздика",
-    description: "Ароматные цветочные бутоны гвоздики" 
-  }
+  { id: 1, name: "Корица", price: "200₽", available: true, logo: "🟫" },
+  { id: 2, name: "Куркума", price: "150₽", available: true, logo: "🟨" },
+  { id: 3, name: "Кардамон", price: "300₽", available: false, logo: "🟩" },
+  { id: 4, name: "Имбирь", price: "180₽", available: true, logo: "🟧" },
+  { id: 5, name: "Гвоздика", price: "220₽", available: true, logo: "🟥" }
 ];
 
 const cityDistricts = {
@@ -113,11 +82,11 @@ function MainPage() {
     setSelectedProduct(product);
     setShowDistricts(true);
   };
-  
+
   return (
-    <div className="min-h-screen flex flex-col items-center p-4 bg-[#f8f5f2] font-sans">
-      {/* Хедер */}
-      <header className="w-full bg-[#222] p-4 mb-4 rounded-lg shadow border-b-2 border-[#d4a762]">
+    <div className="min-h-screen flex flex-col items-center p-5 bg-[#f8f5f2] font-sans">
+      {/* Хедер в стиле photobunker.pro */}
+      <header className="w-full bg-[#222] p-4 mb-6 rounded-lg shadow-md border-b-2 border-[#d4a762]">
         <div className="flex flex-col items-center">
           <div className="w-full flex justify-between items-center mb-3">
             <div className="flex space-x-4">
@@ -134,7 +103,7 @@ function MainPage() {
           </div>
           
           <div className="flex flex-col items-center">
-            <div className="w-16 h-16 bg-[#d4a762] rounded-full shadow mb-2 flex items-center justify-center border-2 border-white">
+            <div className="w-16 h-16 bg-[#d4a762] rounded-full shadow-lg mb-2 flex items-center justify-center border-2 border-white">
               <span className="text-2xl font-bold text-white">S</span>
             </div>
             <h1 className="text-xl font-bold text-white font-serif">Spice Market</h1>
@@ -143,19 +112,19 @@ function MainPage() {
       </header>
 
       {/* Кнопки входа */}
-      <div className="w-full max-w-md mb-4 flex flex-col gap-2 sm:flex-row sm:justify-between">
-        <button className="bg-[#d4a762] hover:bg-[#c29554] text-white px-4 py-2 rounded shadow transition-colors">
+      <div className="w-full max-w-md mb-6 flex flex-col gap-2 sm:flex-row sm:justify-between">
+        <button className="bg-[#d4a762] hover:bg-[#c29554] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium">
           Войти
         </button>
-        <button className="bg-[#d4a762] hover:bg-[#c29554] text-white px-4 py-2 rounded shadow transition-colors">
+        <button className="bg-[#d4a762] hover:bg-[#c29554] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium">
           Регистрация
         </button>
-        <button className="bg-[#222] hover:bg-[#333] text-white px-4 py-2 rounded shadow transition-colors">
+        <button className="bg-[#222] hover:bg-[#333] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium">
           Меню
         </button>
       </div>
-  
-{/* Анимированный текстовый блок */}
+
+      {/* Анимированный текстовый блок */}
       <div 
         ref={containerRef}
         className="mb-6 flex items-center justify-center bg-white rounded-lg shadow-md transition-all duration-500 ease-in-out overflow-hidden border border-[#ddd]"
@@ -174,15 +143,15 @@ function MainPage() {
         </p>
       </div>
 
-      {/* Блок выбора города */}
-      <div className="w-full mb-4 p-4 bg-white rounded shadow border border-[#ddd]">
-        <h2 className="text-lg font-bold mb-2 text-center text-[#222] font-serif">Выбери город</h2>
-        <div className="flex flex-wrap justify-center gap-1">
+      {/* Блок выбора города (новый вариант) */}
+      <div className="w-full mb-4 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
+        <h2 className="text-lg font-bold mb-3 text-center text-[#222] font-serif">Выбери город</h2>
+        <div className="flex flex-wrap justify-center gap-2">
           {allCities.map((city, index) => (
             <React.Fragment key={city}>
               <span 
                 onClick={() => handleCityClick(city)}
-                className={`cursor-pointer px-2 py-1 ${selectedCity === city ? 'text-[#d4a762] font-bold' : 'text-[#222] hover:text-[#d4a762]'}`}
+                className={`cursor-pointer px-2 py-1 rounded transition-colors ${selectedCity === city ? 'text-[#d4a762] font-bold' : 'text-[#222] hover:text-[#d4a762]'}`}
               >
                 {city}
               </span>
@@ -192,45 +161,45 @@ function MainPage() {
         </div>
       </div>
 
-      {/* Блоки товаров (5 вертикальных карточек) */}
-      {selectedCity && (
-        <div className="w-full max-w-md space-y-4 mb-4">
+      {/* Блок товаров */}
+      {showProducts && selectedCity && (
+        <div className="w-full max-w-md mb-4">
           {products.map((product) => (
-            <div key={product.id} className="bg-white rounded shadow border border-[#ddd] overflow-hidden">
-              {/* Фото товара */}
-              <div className="h-40 bg-gray-100 flex items-center justify-center">
-                <img src={product.image} alt={product.name} className="h-full w-full object-cover"/>
-              </div>
-              
-              {/* Информация о товаре */}
-              <div className="p-4">
-                <h3 className="text-xl font-bold text-[#222] mb-1">{product.name}</h3>
-                <p className="text-gray-600 text-sm mb-2">{product.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold text-[#d4a762]">{product.price}</span>
-                  <button
-                    onClick={() => handleBuyClick(product)}
-                    className="bg-[#d4a762] hover:bg-[#c29554] text-white px-4 py-2 rounded shadow transition-colors"
-                  >
-                    Купить
-                  </button>
+            <div key={product.id} className="flex items-center justify-between p-3 mb-2 bg-white rounded-lg shadow-md border border-[#ddd] hover:border-[#d4a762] transition-colors">
+              <div className="text-2xl mr-3">{product.logo}</div>
+              <div className="flex-grow">
+                <h3 className="font-bold text-[#222] font-serif">{product.name}</h3>
+                <div className="flex justify-between">
+                  <span className="text-[#d4a762] font-bold">{product.price}</span>
+                  <span className={`text-sm ${product.available ? 'text-green-600' : 'text-red-600'}`}>
+                    {product.available ? 'Есть' : 'Нет'}
+                  </span>
                 </div>
               </div>
+              <button
+                onClick={() => handleBuyClick(product)}
+                disabled={!product.available}
+                className={`ml-3 px-4 py-2 rounded-lg shadow-md transition-colors font-medium ${product.available ? 
+                  'bg-[#d4a762] hover:bg-[#c29554] text-white' : 
+                  'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+              >
+                Купить
+              </button>
             </div>
           ))}
         </div>
       )}
 
       {/* Блок районов */}
-      {selectedProduct && (
-        <div className="w-full max-w-md p-4 bg-white rounded shadow border border-[#ddd]">
-          <h3 className="font-bold text-[#222] mb-3">Доставка в {selectedCity}</h3>
+      {showDistricts && selectedCity && selectedProduct && (
+        <div className="w-full max-w-md mb-6 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
+          <h3 className="font-bold text-[#222] mb-2 font-serif">Выберите район в {selectedCity}:</h3>
           <div className="grid grid-cols-2 gap-2">
             {cityDistricts[selectedCity]?.map((district) => (
               <button
                 key={district}
                 onClick={() => navigate("/payment")}
-                className="bg-[#f8f5f2] hover:bg-[#d4a762] hover:text-white text-[#222] p-2 rounded shadow transition-colors text-sm"
+                className="p-2 bg-[#f8f5f2] hover:bg-[#d4a762] hover:text-white text-[#222] rounded-md text-sm transition-colors font-medium"
               >
                 {district}
               </button>
@@ -240,8 +209,8 @@ function MainPage() {
       )}
 
       {/* Футер */}
-      <footer className="w-full bg-[#222] p-4 mt-4 text-center text-white rounded shadow border-t-2 border-[#d4a762]">
-        © 2025 Spice Market
+      <footer className="w-full bg-[#222] p-4 mt-8 text-center text-white rounded-lg shadow-md border-t-2 border-[#d4a762] font-serif">
+        © 2025 Spice Market - Все права защищены
       </footer>
     </div>
   );
@@ -249,7 +218,7 @@ function MainPage() {
 
 function NavButton({ icon, text }) {
   return (
-    <button className="flex items-center space-x-1 text-white hover:text-[#d4a762] transition-colors">
+    <button className="flex items-center space-x-1 text-white hover:text-[#d4a762] transition-colors font-medium">
       <span>{icon}</span>
       <span className="text-sm">{text}</span>
     </button>
