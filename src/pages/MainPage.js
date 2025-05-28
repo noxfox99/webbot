@@ -3,19 +3,50 @@ import { useNavigate } from "react-router-dom";
 
 const allCities = [
   "Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань",
-  "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону",
-  "Уфа", "Красноярск", "Пермь", "Воронеж", "Волгоград",
-  "Краснодар", "Саратов", "Тюмень", "Тольятти", "Ижевск",
-  "Барнаул", "Ульяновск", "Иркутск", "Хабаровск", "Ярославль",
-  "Владивосток", "Махачкала", "Томск", "Оренбург", "Кемерово"
+  "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону"
 ];
 
 const products = [
-  { id: 1, name: "Корица", price: "200₽", available: true, logo: "🟫" },
-  { id: 2, name: "Куркума", price: "150₽", available: true, logo: "🟨" },
-  { id: 3, name: "Кардамон", price: "300₽", available: false, logo: "🟩" },
-  { id: 4, name: "Имбирь", price: "180₽", available: true, logo: "🟧" },
-  { id: 5, name: "Гвоздика", price: "220₽", available: true, logo: "🟥" }
+  { 
+    id: 1, 
+    name: "Корица цейлонская", 
+    price: "450₽", 
+    available: true, 
+    image: "https://example.com/cinnamon.jpg",
+    description: "Настоящая цейлонская корица высшего качества"
+  },
+  { 
+    id: 2, 
+    name: "Куркума индийская", 
+    price: "320₽", 
+    available: true, 
+    image: "https://example.com/turmeric.jpg",
+    description: "Яркая ароматная куркума из Индии"
+  },
+  { 
+    id: 3, 
+    name: "Кардамон зеленый", 
+    price: "680₽", 
+    available: true, 
+    image: "https://example.com/cardamom.jpg",
+    description: "Свежий зеленый кардамон с насыщенным ароматом"
+  },
+  { 
+    id: 4, 
+    name: "Имбирь молотый", 
+    price: "290₽", 
+    available: true, 
+    image: "https://example.com/ginger.jpg",
+    description: "Острый ароматный молотый имбирь"
+  },
+  { 
+    id: 5, 
+    name: "Гвоздика целая", 
+    price: "380₽", 
+    available: true, 
+    image: "https://example.com/cloves.jpg",
+    description: "Ароматные цветочные бутоны гвоздики"
+  }
 ];
 
 const cityDistricts = {
@@ -24,52 +55,12 @@ const cityDistricts = {
   "Казань": ["Вахитовский", "Кировский", "Московский", "Приволжский", "Советский"]
 };
 
-const phrases = [
-  "Купи специи в своем городе",
-  "Готовь на максималках",
-  "Развивай кухонные способности",
-  "Наши специи лучшие на рынке",
-  "Удиви родных, приготовь изысканное"
-];
-
 function MainPage() {
   const navigate = useNavigate();
-  const [currentPhrase, setCurrentPhrase] = useState(0);
-  const [animate, setAnimate] = useState(true);
-  const textRef = useRef(null);
-  const containerRef = useRef(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [showProducts, setShowProducts] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showDistricts, setShowDistricts] = useState(false);
-
-  useEffect(() => {
-    const updateSize = () => {
-      if (textRef.current && containerRef.current) {
-        const textWidth = textRef.current.offsetWidth;
-        const textHeight = textRef.current.offsetHeight;
-        containerRef.current.style.width = `${textWidth + 40}px`;
-        containerRef.current.style.height = `${textHeight + 40}px`;
-      }
-    };
-
-    const interval = setInterval(() => {
-      setAnimate(false);
-      setTimeout(() => {
-        setCurrentPhrase((prev) => (prev + 1) % phrases.length);
-        setTimeout(updateSize, 10);
-        setAnimate(true);
-      }, 500);
-    }, 3000);
-
-    updateSize();
-    window.addEventListener('resize', updateSize);
-
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('resize', updateSize);
-    };
-  }, []);
 
   const handleCityClick = (city) => {
     setSelectedCity(city);
@@ -85,7 +76,7 @@ function MainPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center p-5 bg-[#f8f5f2] font-sans">
-      {/* Хедер в стиле photobunker.pro */}
+      {/* Хедер */}
       <header className="w-full bg-[#222] p-4 mb-6 rounded-lg shadow-md border-b-2 border-[#d4a762]">
         <div className="flex flex-col items-center">
           <div className="w-full flex justify-between items-center mb-3">
@@ -124,26 +115,7 @@ function MainPage() {
         </button>
       </div>
 
-      {/* Анимированный текстовый блок */}
-      <div 
-        ref={containerRef}
-        className="mb-6 flex items-center justify-center bg-white rounded-lg shadow-md transition-all duration-500 ease-in-out overflow-hidden border border-[#ddd]"
-        style={{ padding: '20px', minWidth: '100px' }}
-      >
-        <p 
-          ref={textRef}
-          className={`text-center text-[#222] transition-all duration-500 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} font-serif`}
-          style={{ 
-            fontSize: '1.5rem', 
-            fontWeight: 600,
-            whiteSpace: 'nowrap'
-          }}
-        >
-          {phrases[currentPhrase]}
-        </p>
-      </div>
-
-      {/* Блок выбора города (новый вариант) */}
+      {/* Блок выбора города */}
       <div className="w-full mb-4 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
         <h2 className="text-lg font-bold mb-3 text-center text-[#222] font-serif">Выбери город</h2>
         <div className="flex flex-wrap justify-center gap-2">
@@ -161,45 +133,52 @@ function MainPage() {
         </div>
       </div>
 
-      {/* Блок товаров */}
+      {/* Блоки товаров (5 вертикальных карточек) */}
       {showProducts && selectedCity && (
-        <div className="w-full max-w-md mb-4">
+        <div className="w-full max-w-2xl mb-4 grid gap-4">
           {products.map((product) => (
-            <div key={product.id} className="flex items-center justify-between p-3 mb-2 bg-white rounded-lg shadow-md border border-[#ddd] hover:border-[#d4a762] transition-colors">
-              <div className="text-2xl mr-3">{product.logo}</div>
-              <div className="flex-grow">
-                <h3 className="font-bold text-[#222] font-serif">{product.name}</h3>
-                <div className="flex justify-between">
-                  <span className="text-[#d4a762] font-bold">{product.price}</span>
-                  <span className={`text-sm ${product.available ? 'text-green-600' : 'text-red-600'}`}>
-                    {product.available ? 'Есть' : 'Нет'}
-                  </span>
+            <div key={product.id} className="bg-white rounded-lg shadow-md border border-[#ddd] overflow-hidden">
+              <div className="flex flex-col md:flex-row">
+                {/* Место для фото */}
+                <div className="w-full md:w-1/3 h-48 bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-500">Фото {product.name}</span>
+                </div>
+                
+                {/* Информация о товаре */}
+                <div className="w-full md:w-2/3 p-4 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-[#222] font-serif mb-2">{product.name}</h3>
+                    <p className="text-gray-600 mb-4">{product.description}</p>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-[#d4a762]">{product.price}</span>
+                    <button
+                      onClick={() => handleBuyClick(product)}
+                      className="bg-[#d4a762] hover:bg-[#c29554] text-white px-6 py-2 rounded-lg shadow-md transition-colors font-medium"
+                    >
+                      Купить
+                    </button>
+                  </div>
                 </div>
               </div>
-              <button
-                onClick={() => handleBuyClick(product)}
-                disabled={!product.available}
-                className={`ml-3 px-4 py-2 rounded-lg shadow-md transition-colors font-medium ${product.available ? 
-                  'bg-[#d4a762] hover:bg-[#c29554] text-white' : 
-                  'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
-              >
-                Купить
-              </button>
             </div>
           ))}
         </div>
       )}
 
-      {/* Блок районов */}
+      {/* Блок районов (появляется после нажатия "Купить") */}
       {showDistricts && selectedCity && selectedProduct && (
-        <div className="w-full max-w-md mb-6 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
-          <h3 className="font-bold text-[#222] mb-2 font-serif">Выберите район в {selectedCity}:</h3>
-          <div className="grid grid-cols-2 gap-2">
+        <div className="w-full max-w-2xl mb-6 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
+          <h3 className="font-bold text-[#222] mb-4 font-serif text-center">
+            Выберите район в {selectedCity} для доставки "{selectedProduct.name}"
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
             {cityDistricts[selectedCity]?.map((district) => (
               <button
                 key={district}
                 onClick={() => navigate("/payment")}
-                className="p-2 bg-[#f8f5f2] hover:bg-[#d4a762] hover:text-white text-[#222] rounded-md text-sm transition-colors font-medium"
+                className="p-3 bg-[#f8f5f2] hover:bg-[#d4a762] hover:text-white text-[#222] rounded-lg text-sm transition-colors font-medium text-center"
               >
                 {district}
               </button>
