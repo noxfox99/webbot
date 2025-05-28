@@ -55,20 +55,65 @@ const cityDistricts = {
   "Казань": ["Вахитовский", "Кировский", "Московский", "Приволжский", "Советский"]
 };
 
+const phrases = [
+  "Купи специи в своем городе",
+  "Готовь на максималках",
+  "Развивай кухонные способности",
+  "Наши специи лучшие на рынке",
+  "Удиви родных, приготовь изысканное"
+];
+
 function MainPage() {
   const navigate = useNavigate();
+  const [currentPhrase, setCurrentPhrase] = useState(0);
+  const [animate, setAnimate] = useState(true);
+  const textRef = useRef(null);
+  const containerRef = useRef(null);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [showProducts, setShowProducts] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showDistricts, setShowDistricts] = useState(false);
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (textRef.current && containerRef.current) {
+        const textWidth = textRef.current.offsetWidth;
+        const textHeight = textRef.current.offsetHeight;
+        containerRef.current.style.width = `${textWidth + 40}px`;
+        containerRef.current.style.height = `${textHeight + 40}px`;
+      }
+    };
+
+    const interval = setInterval(() => {
+      setAnimate(false);
+      setTimeout(() => {
+        setCurrentPhrase((prev) => (prev + 1) % phrases.length);
+        setTimeout(updateSize, 10);
+        setAnimate(true);
+      }, 500);
+    }, 3000);
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', updateSize);
+    };
+  }, []);
 
   const handleCityClick = (city) => {
     setSelectedCity(city);
+    setShowProducts(true);
     setSelectedProduct(null);
+    setShowDistricts(false);
   };
 
   const handleBuyClick = (product) => {
     setSelectedProduct(product);
+    setShowDistricts(true);
   };
-
+  
   return (
     <div className="min-h-screen flex flex-col items-center p-4 bg-[#f8f5f2] font-sans">
       {/* Хедер */}
@@ -108,6 +153,25 @@ function MainPage() {
         <button className="bg-[#222] hover:bg-[#333] text-white px-4 py-2 rounded shadow transition-colors">
           Меню
         </button>
+      </div>
+  
+{/* Анимированный текстовый блок */}
+      <div 
+        ref={containerRef}
+        className="mb-6 flex items-center justify-center bg-white rounded-lg shadow-md transition-all duration-500 ease-in-out overflow-hidden border border-[#ddd]"
+        style={{ padding: '20px', minWidth: '100px' }}
+      >
+        <p 
+          ref={textRef}
+          className={`text-center text-[#222] transition-all duration-500 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} font-serif`}
+          style={{ 
+            fontSize: '1.5rem', 
+            fontWeight: 600,
+            whiteSpace: 'nowrap'
+          }}
+        >
+          {phrases[currentPhrase]}
+        </p>
       </div>
 
       {/* Блок выбора города */}
