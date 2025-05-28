@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const cities = ["Москва", "Санкт-Петербург", "Казань"];
@@ -9,24 +9,42 @@ const goods = [
   { name: "Товар 3", price: "300₽" },
 ];
 
+const phrases = [
+  "Купи специи в своем городе",
+  "Готовь на максималках",
+  "Развивай кухонные способности",
+  "Наши специи лучшие на рынке",
+  "Удиви родных, приготовь изысканное"
+];
+
 function MainPage() {
   const navigate = useNavigate();
+  const [currentPhrase, setCurrentPhrase] = useState(0);
+  const [animate, setAnimate] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimate(false);
+      setTimeout(() => {
+        setCurrentPhrase((prev) => (prev + 1) % phrases.length);
+        setAnimate(true);
+      }, 500);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center p-5 bg-gradient-to-b from-orange-50 to-white">
-      {/* Обновленный хедер */}
       <header className="w-full bg-gradient-to-r from-black to-orange-600 p-4 mb-6 rounded-lg shadow-xl">
         <div className="flex flex-col items-center">
-          {/* Верхняя часть хедера с навигацией */}
           <div className="w-full flex justify-between items-center mb-3">
-            {/* Левая группа кнопок */}
             <div className="flex space-x-4">
               <NavButton icon="🛒" text="Товары" />
               <NavButton icon="✔️" text="Проверка заказа" />
               <NavButton icon="💬" text="Отзывы" />
             </div>
             
-            {/* Правая группа кнопок */}
             <div className="flex space-x-4">
               <NavButton icon="💰" text="Работа" />
               <NavButton icon="📜" text="Правила" />
@@ -34,7 +52,6 @@ function MainPage() {
             </div>
           </div>
           
-          {/* Логотип и название */}
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full shadow-lg mb-2 flex items-center justify-center">
               <span className="text-2xl font-bold text-white">S</span>
@@ -44,11 +61,17 @@ function MainPage() {
         </div>
       </header>
 
-      {/* Основное содержимое (оставлено без изменений) */}
       <div className="w-full max-w-md mb-6 flex flex-col gap-2 sm:flex-row sm:justify-between">
         <button className="bg-orange-600 hover:bg-orange-700 text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors">Войти</button>
         <button className="bg-orange-600 hover:bg-orange-700 text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors">Регистрация</button>
         <button className="bg-gray-800 hover:bg-gray-700 text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors">Меню</button>
+      </div>
+
+      {/* Новый анимированный текстовый блок */}
+      <div className="w-[300px] h-[200px] p-[10px] bg-gradient-to-br from-orange-100 to-white border-2 border-orange-300 rounded-xl shadow-lg mb-6 flex items-center justify-center text-center">
+        <p className={`text-gray-800 text-[14px] font-medium transition-opacity duration-500 ${animate ? 'opacity-100' : 'opacity-0'}`}>
+          {phrases[currentPhrase]}
+        </p>
       </div>
 
       <div className="w-full max-w-md mb-6">
@@ -95,7 +118,6 @@ function MainPage() {
   );
 }
 
-// Компонент для кнопок навигации в хедере
 function NavButton({ icon, text }) {
   return (
     <button className="flex items-center space-x-1 text-white hover:text-orange-200 transition-colors">
