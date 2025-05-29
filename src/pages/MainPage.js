@@ -116,7 +116,6 @@ function MainPage() {
   const handleBuyClick = (product) => {
     setSelectedProduct(product);
     setShowDistricts(true);
-    // Navigate directly to payment page
     navigate("/payment", { 
       state: { 
         product: product,
@@ -126,7 +125,7 @@ function MainPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-5 bg-[#f8f5f2] font-sans">
+    <div className="min-h-screen flex flex-col items-center p-5 bg-gradient-to-b from-[#0a1a3a] to-[#1a3a6e] font-sans">
       {/* Хедер */}
       <header className="w-full bg-[#222] p-4 mb-6 rounded-lg shadow-md border-b-2 border-[#d4a762]">
         <div className="flex flex-col items-center">
@@ -236,31 +235,31 @@ function MainPage() {
         </div>
       )}
 
-{/* Блок районов */}
-{showDistricts && selectedCity && selectedProduct && (
-  <div className="w-full max-w-md mb-6 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
-    <h3 className="font-bold text-[#222] mb-4 font-serif text-center">
-      Выберите район в {selectedCity} для доставки "{selectedProduct.name}"
-    </h3>
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-      {cityDistricts[selectedCity]?.map((district) => (
-        <button
-          key={district}
-          onClick={() => navigate("/payment", { 
-            state: { 
-              product: selectedProduct,
-              city: selectedCity,
-              district: district
-            } 
-          })}
-          className="p-3 bg-[#f8f5f2] hover:bg-[#d4a762] hover:text-white text-[#222] rounded-lg text-sm transition-colors font-medium text-center"
-        >
-          {district}
-        </button>
-      ))}
-    </div>
-  </div>
-)}
+      {/* Блок районов */}
+      {showDistricts && selectedCity && selectedProduct && (
+        <div className="w-full max-w-md mb-6 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
+          <h3 className="font-bold text-[#222] mb-4 font-serif text-center">
+            Выберите район в {selectedCity} для доставки "{selectedProduct.name}"
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {cityDistricts[selectedCity]?.map((district) => (
+              <button
+                key={district}
+                onClick={() => navigate("/payment", { 
+                  state: { 
+                    product: selectedProduct,
+                    city: selectedCity,
+                    district: district
+                  } 
+                })}
+                className="p-3 bg-[#f8f5f2] hover:bg-[#d4a762] hover:text-white text-[#222] rounded-lg text-sm transition-colors font-medium text-center"
+              >
+                {district}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Футер */}
       <footer className="w-full bg-[#222] p-4 mt-8 text-center text-white rounded-lg shadow-md border-t-2 border-[#d4a762] font-serif">
