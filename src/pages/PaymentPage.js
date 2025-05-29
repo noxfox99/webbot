@@ -17,23 +17,21 @@ const PaymentPage = () => {
 
   const handlePaymentMethodSelect = (method) => {
     console.log('Selected payment method:', method);
-    // Here you would typically process the payment
-    // For now, we'll just show an alert
     alert(`Выбран способ оплаты: ${method.name}\nТовар: ${product?.name}\nГород: ${city}\nРайон: ${district || 'Не указан'}`);
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f5f2] p-6">
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a1a3a] to-[#1a3a6e] p-6">
+      <div className="max-w-md mx-auto bg-white rounded-lg shadow-xl p-6">
         <h1 className="text-2xl font-bold text-center text-[#222] mb-8">ВЫБЕРИТЕ МЕТОД ОПЛАТЫ</h1>
         
         {product && (
-          <div className="mb-6 p-4 bg-[#f0f0f0] rounded-lg">
-            <h2 className="font-bold text-[#222]">Ваш заказ:</h2>
-            <p className="text-[#222]">Товар: {product.name}</p>
-            <p className="text-[#222]">Цена: {product.price}</p>
-            <p className="text-[#222]">Город: {city}</p>
-            {district && <p className="text-[#222]">Район: {district}</p>}
+          <div className="mb-6 p-4 bg-gray-100 rounded-lg border border-gray-200">
+            <h2 className="font-bold text-[#222] mb-2">Ваш заказ:</h2>
+            <p className="text-[#222]"><span className="font-medium">Товар:</span> {product.name}</p>
+            <p className="text-[#222]"><span className="font-medium">Цена:</span> {product.price}</p>
+            <p className="text-[#222]"><span className="font-medium">Город:</span> {city}</p>
+            {district && <p className="text-[#222]"><span className="font-medium">Район:</span> {district}</p>}
           </div>
         )}
 
@@ -42,9 +40,9 @@ const PaymentPage = () => {
             <button
               key={method.id}
               onClick={() => handlePaymentMethodSelect(method)}
-              className="flex flex-col items-center justify-center p-4 border border-[#ddd] rounded-lg hover:bg-[#f0f0f0] transition-colors"
+              className="flex flex-col items-center justify-center p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-all hover:shadow-md"
             >
-              <span className="text-3xl mb-2">{method.icon}</span>
+              <span className="text-3xl mb-2 text-[#222]">{method.icon}</span>
               <span className="text-[#222] font-medium">{method.name}</span>
             </button>
           ))}
@@ -53,7 +51,7 @@ const PaymentPage = () => {
         <div className="mt-8 flex justify-center">
           <button 
             onClick={() => navigate(-1)}
-            className="px-6 py-2 bg-[#d4a762] hover:bg-[#c29554] text-white rounded-lg shadow-md transition-colors"
+            className="px-6 py-2 bg-[#3a5a99] hover:bg-[#2d4375] text-white rounded-lg shadow-md transition-colors font-medium"
           >
             Назад
           </button>
