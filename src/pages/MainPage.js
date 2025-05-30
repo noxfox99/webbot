@@ -115,16 +115,14 @@ function MainPage() {
     setShowDistricts(false);
   };
 
-  const handleBuyClick = (product) => {
-    setSelectedProduct(product);
-    setShowDistricts(true);
-    navigate("/payment", { 
-      state: { 
-        product: product,
-        city: selectedCity 
-      } 
-    });
-  };
+const handleBuyClick = (product) => {
+  navigate("/district-selection", {
+    state: {
+      product: product,
+      city: selectedCity
+    }
+  });
+};
 
   return (
     <div className="min-h-screen flex flex-col items-center p-5 bg-gradient-to-b from-[#0a1a3a] to-[#1a3a6e] font-sans">
