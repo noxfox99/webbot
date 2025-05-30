@@ -116,10 +116,16 @@ function MainPage() {
   const handleBuyClick = (product) => {
     setSelectedProduct(product);
     setShowDistricts(true);
+    navigate("/payment", { 
+      state: { 
+        product: product,
+        city: selectedCity 
+      } 
+    });
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-5 bg-[#f8f5f2] font-sans">
+    <div className="min-h-screen flex flex-col items-center p-5 bg-gradient-to-b from-[#0a1a3a] to-[#1a3a6e] font-sans">
       {/* Хедер */}
       <header className="w-full bg-[#222] p-4 mb-6 rounded-lg shadow-md border-b-2 border-[#d4a762]">
         <div className="flex flex-col items-center">
@@ -239,7 +245,13 @@ function MainPage() {
             {cityDistricts[selectedCity]?.map((district) => (
               <button
                 key={district}
-                onClick={() => navigate("/payment")}
+                onClick={() => navigate("/payment", { 
+                  state: { 
+                    product: selectedProduct,
+                    city: selectedCity,
+                    district: district
+                  } 
+                })}
                 className="p-3 bg-[#f8f5f2] hover:bg-[#d4a762] hover:text-white text-[#222] rounded-lg text-sm transition-colors font-medium text-center"
               >
                 {district}
