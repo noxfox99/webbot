@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainPage from './MainPage';
-import PaymentPage from './PaymentPage';
-import DistrictSelection from './DistrictSelection';
+import MainPage from './pages/MainPage';  // Add 'pages/' to the path
+import PaymentPage from './pages/PaymentPage';  // Add 'pages/' to the path
+import DistrictSelection from './pages/DistrictSelection';  // Add 'pages/' to the path
 
 function App() {
   return (
