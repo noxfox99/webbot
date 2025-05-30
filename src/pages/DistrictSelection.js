@@ -1,17 +1,15 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+const cityDistricts = {
+  "Москва": ["Центральный", "Северный", "Северо-Восточный", "Восточный", "Юго-Восточный", "Южный", "Юго-Западный", "Западный", "Северо-Западный", "Зеленоградский"],
+  // ... остальные города как у вас в MainPage.js
+};
+
 const DistrictSelection = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { product, city } = state || {};
-
-  // Получаем районы для выбранного города
-  const cityDistricts = {
-    "Москва": ["Центральный", "Северный", "Северо-Восточный", "Восточный", "Юго-Восточный", "Южный", "Юго-Западный", "Западный", "Северо-Западный", "Зеленоградский"],
-    // ... остальные города как в основном файле
-  };
-
   const districts = cityDistricts[city] || [];
 
   const handleDistrictSelect = (district) => {
