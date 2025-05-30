@@ -274,6 +274,16 @@ const handleBuyClick = (product) => {
               <div className="p-4">
                 <h3 className="text-xl font-bold text-[#222] mb-2 font-serif">{product.name}</h3>
                 <p className="text-gray-600 text-sm mb-4">{product.description}</p>
+                 <select
+      id="quantity"
+      value={selectedQuantity}
+      onChange={(e) => setSelectedQuantity(e.target.value)}
+      className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#d4a762]"
+    >
+      <option value="0.5">0.5г</option>
+      <option value="1">1г</option>
+      <option value="2">2г</option>
+    </select>
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-bold text-[#d4a762]">{product.price}</span>
                   <button
