@@ -280,7 +280,11 @@ const handleBuyClick = (product, quantity) => {
       id="quantity"
       value={selectedQuantity}
       onChange={(e) => setSelectedQuantity(e.target.value)}
-      className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#d4a762]"
+      className={`border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#d4a762] text-black transition-all duration-300 ${
+            selectedQuantity === "1"
+              ? "text-base"
+              : "text-lg font-semibold"
+          }`}
     >
       <option value="0.5">0.5г</option>
       <option value="1">1г</option>
