@@ -15,9 +15,16 @@ const PaymentPage = () => {
   const navigate = useNavigate();
   const { product, city, district } = location.state || {};
 
-  const handlePaymentMethodSelect = (method) => {
-    alert(`Выбран способ оплаты: ${method.name}\nТовар: ${product?.name}\nГород: ${city}\nРайон: ${district}`);
-  };
+const handlePaymentMethodSelect = (method) => {
+  navigate("/order-confirmation", {
+    state: {
+      product,
+      city,
+      district,
+      paymentMethod: method
+    }
+  });
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a1a3a] to-[#1a3a6e] p-6">
