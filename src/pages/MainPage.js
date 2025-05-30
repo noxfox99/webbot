@@ -178,17 +178,18 @@ const handleBuyClick = (product) => {
       </header>
 
       {/* Кнопки входа */}
-      <div className="w-full max-w-md mb-6 flex flex-col gap-2 sm:flex-row sm:justify-between">
-        <button className="bg-[#d4a762] hover:bg-[#c29554] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium">
-          Войти
-        </button>
-        <button className="bg-[#d4a762] hover:bg-[#c29554] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium">
-          Регистрация
-        </button>
-        <button className="bg-[#222] hover:bg-[#333] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium">
-          Меню
-        </button>
-      </div>
+  <button 
+  onClick={() => navigate('/login')}
+  className="bg-[#d4a762] hover:bg-[#c29554] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium"
+>
+  Войти
+</button>
+<button 
+  onClick={() => navigate('/register')}
+  className="bg-[#d4a762] hover:bg-[#c29554] text-white w-full sm:w-auto px-4 py-2 rounded-lg shadow-md transition-colors font-medium"
+>
+  Регистрация
+</button>
 
       {/* Анимированный текстовый блок */}
       <div 
