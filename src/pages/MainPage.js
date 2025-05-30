@@ -104,6 +104,8 @@ function MainPage() {
   const [showProducts, setShowProducts] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showDistricts, setShowDistricts] = useState(false);
+  const [selectedQuantity, setSelectedQuantity] = useState("1");
+
 
   useEffect(() => {
     const updateSize = () => {
@@ -140,7 +142,7 @@ function MainPage() {
     setShowDistricts(false);
   };
 
-const handleBuyClick = (product) => {
+const handleBuyClick = (product, quantity) => {
   navigate("/district-selection", {
     state: {
       product: product,
