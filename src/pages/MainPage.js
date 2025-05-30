@@ -86,12 +86,6 @@ const products = [
   }
 ];
 
-const cityDistricts = {
-  "Москва": ["Центральный", "Северный", "Северо-Восточный", "Восточный", "Юго-Восточный"],
-  "Санкт-Петербург": ["Адмиралтейский", "Василеостровский", "Выборгский", "Калининский", "Петроградский"],
-  "Казань": ["Вахитовский", "Кировский", "Московский", "Приволжский", "Советский"]
-};
-
 const phrases = [
   "Купи специи в своем городе",
   "Готовь на максималках",
@@ -291,32 +285,6 @@ function MainPage() {
               </div>
             </div>
           ))}
-        </div>
-      )}
-
-      {/* Блок районов */}
-      {showDistricts && selectedCity && selectedProduct && (
-        <div className="w-full max-w-md mb-6 p-4 bg-white rounded-lg shadow-md border border-[#ddd]">
-          <h3 className="font-bold text-[#222] mb-4 font-serif text-center">
-            Выберите район в {selectedCity} для доставки "{selectedProduct.name}"
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            {cityDistricts[selectedCity]?.map((district) => (
-              <button
-                key={district}
-                onClick={() => navigate("/payment", { 
-                  state: { 
-                    product: selectedProduct,
-                    city: selectedCity,
-                    district: district
-                  } 
-                })}
-                className="p-3 bg-[#f8f5f2] hover:bg-[#d4a762] hover:text-white text-[#222] rounded-lg text-sm transition-colors font-medium text-center"
-              >
-                {district}
-              </button>
-            ))}
-          </div>
         </div>
       )}
 
