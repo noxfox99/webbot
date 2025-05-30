@@ -141,12 +141,12 @@ function MainPage() {
   };
 
 const handleBuyClick = (product) => {
-  setSelectedProduct(product);
-  setShowDistricts(true); // Показываем блок районов
-  // Прокручиваем к блоку районов
-  setTimeout(() => {
-    document.getElementById('districts-section')?.scrollIntoView({ behavior: 'smooth' });
-  }, 100);
+  navigate("/district-selection", {
+    state: {
+      product: product,
+      city: selectedCity
+    }
+  });
 };
 
   return (
