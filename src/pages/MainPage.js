@@ -172,7 +172,7 @@ const handleBuyClick = (product, quantity) => {
           
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 bg-[#d4a762] rounded-full shadow-lg mb-2 flex items-center justify-center border-2 border-white">
-              <span className="text-2xl font-bold text-white">S</span>
+              <span className="text-2xl font-bold text-white">PM</span>
             </div>
             <h1 className="text-xl font-bold text-white font-serif">Pizza Market</h1>
           </div>
