@@ -46,52 +46,52 @@ const cityDistricts = {
 const products = [
   { 
     id: 1, 
-    name: "Корица цейлонская", 
+    name: "Пепперони", 
     price: "450₽", 
     available: true, 
-    image: "https://via.placeholder.com/300x200?text=Корица+цейлонская",
-    description: "Настоящая цейлонская корица высшего качества" 
+    image: "https://via.placeholder.com/300x200?text=Пепперони",
+    description: "Описание" 
   },
   { 
     id: 2, 
-    name: "Куркума индийская", 
+    name: "4 сыра", 
     price: "320₽", 
     available: true, 
-    image: "https://via.placeholder.com/300x200?text=Куркума+индийская",
-    description: "Яркая ароматная куркума из Индии" 
+    image: "https://via.placeholder.com/300x200?text=4-сыра",
+    description: "Описание" 
   },
   { 
     id: 3, 
-    name: "Кардамон зеленый", 
+    name: "Мясная", 
     price: "680₽", 
     available: true, 
-    image: "https://via.placeholder.com/300x200?text=Кардамон+зеленый",
-    description: "Свежий зеленый кардамон с насыщенным ароматом" 
+    image: "https://via.placeholder.com/300x200?text=Мясная",
+    description: "Описание" 
   },
   { 
     id: 4, 
-    name: "Имбирь молотый", 
+    name: "Гавайская", 
     price: "290₽", 
     available: true, 
-    image: "https://via.placeholder.com/300x200?text=Имбирь+молотый",
-    description: "Острый ароматный молотый имбирь" 
+    image: "https://via.placeholder.com/300x200?text=Гавайская",
+    description: "Описание" 
   },
   { 
     id: 5, 
-    name: "Гвоздика целая", 
+    name: "BBQ", 
     price: "380₽", 
     available: true, 
-    image: "https://via.placeholder.com/300x200?text=Гвоздика+целая",
-    description: "Ароматные цветочные бутоны гвоздики" 
+    image: "https://via.placeholder.com/300x200?text=BBQ",
+    description: "Описание" 
   }
 ];
 
 const phrases = [
-  "Купи специи в своем городе",
-  "Готовь на максималках",
-  "Развивай кухонные способности",
-  "Наши специи лучшие на рынке",
-  "Удиви родных, приготовь изысканное"
+  "Пицца, в которую влюбляешься с первого кусочка!",
+  "Тесто, соус, сыр — и никакой магии. Просто вкусно!",
+  "Горячая. Сытная. Твоя",
+  "Печь не врёт — у нас самая сочная пицца в городе!",
+  "Когда хочется по-настоящему — заказывай у нас"
 ];
 
 function MainPage() {
@@ -174,7 +174,7 @@ const handleBuyClick = (product, quantity) => {
             <div className="w-16 h-16 bg-[#d4a762] rounded-full shadow-lg mb-2 flex items-center justify-center border-2 border-white">
               <span className="text-2xl font-bold text-white">S</span>
             </div>
-            <h1 className="text-xl font-bold text-white font-serif">Spice Market</h1>
+            <h1 className="text-xl font-bold text-white font-serif">Pizza Market</h1>
           </div>
         </div>
       </header>
@@ -286,9 +286,9 @@ const handleBuyClick = (product, quantity) => {
               : "text-lg font-semibold"
           }`}
     >
-      <option value="0.5">0.5г</option>
-      <option value="1">1г</option>
-      <option value="2">2г</option>
+      <option value="1">1шт</option>
+      <option value="2">2шт</option>
+      <option value="3">3шт</option>
     </select>
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-bold text-[#d4a762]">{product.price}</span>
@@ -309,7 +309,7 @@ const handleBuyClick = (product, quantity) => {
 
       {/* Футер */}
       <footer className="w-full bg-[#222] p-4 mt-8 text-center text-white rounded-lg shadow-md border-t-2 border-[#d4a762] font-serif">
-        © 2025 Spice Market - Все права защищены
+        © 2025 Pizza Market - Все права защищены
       </footer>
     </div>
   );
