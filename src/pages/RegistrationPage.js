@@ -88,7 +88,7 @@ const RegistrationPage = () => {
 
         <form onSubmit={handleSubmit} noValidate>
           <div className="mb-4">
-            <label className="block text-[#222] text-sm font-medium mb-2">Логин*</label>
+           <label className="block text-black text-sm font-medium mb-2">Логин*</label>
             <input
               type="text"
               name="login"
@@ -101,7 +101,7 @@ const RegistrationPage = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-[#222] text-sm font-medium mb-2">Пароль*</label>
+            <label className="block text-black text-sm font-medium mb-2">Пароль*</label>
             <input
               type="password"
               name="password"
@@ -114,7 +114,7 @@ const RegistrationPage = () => {
           </div>
 
           <div className="mb-6">
-            <label className="block text-[#222] text-sm font-medium mb-2">Telegram*</label>
+            <label className="block text-black text-sm font-medium mb-2">Telegram*</label>
             <input
               type="text"
               name="telegram"
