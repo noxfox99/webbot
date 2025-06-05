@@ -94,7 +94,7 @@ const RegistrationPage = () => {
       name="login"
       value={formData.login}
       onChange={handleChange}
-      className={`w-full px-3 py-2 border ${errors.login ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d4a762]`}
+      className={`w-full px-3 py-2 border ${errors.login ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d4a762] text-black`}
       required
     />
     {errors.login && <p className="mt-1 text-red-500 text-sm">{errors.login}</p>}
@@ -107,10 +107,24 @@ const RegistrationPage = () => {
       name="password"
       value={formData.password}
       onChange={handleChange}
-      className={`w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d4a762]`}
+      className={`w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d4a762] text-black`}
       required
     />
     {errors.password && <p className="mt-1 text-red-500 text-sm">{errors.password}</p>}
+  </div>
+
+  <div className="mb-6">
+    <label className="block text-black text-sm font-medium mb-2">Telegram*</label>
+    <input
+      type="text"
+      name="telegram"
+      value={formData.telegram}
+      onChange={handleChange}
+      className={`w-full px-3 py-2 border ${errors.telegram ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d4a762] text-black`}
+      placeholder="@username"
+      required
+    />
+    {errors.telegram && <p className="mt-1 text-red-500 text-sm">{errors.telegram}</p>}
   </div>
 
   <div className="mb-6">
