@@ -5,6 +5,7 @@ import DistrictSelection from './pages/DistrictSelection';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 import OrderConfirmation from './pages/OrderConfirmation';
+import PersonalCabinet from './pages/PersonalCabinet';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
+        <Route path="/personal-cabinet" element={<PersonalCabinet />} />
       </Routes>
     </Router>
   );
