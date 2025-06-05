@@ -8,7 +8,7 @@ const PersonalCabinet = () => {
 
   const menuItems = [
     { title: "Ваши покупки", icon: "🛍️" },
-    { title: "Ваши пакеты и перезаклады", icon: "📦" },
+    { title: "Ваши заказы", icon: "📦" },
     { title: "Заявки на покупки и пополнения", icon: "📝" },
     { title: "Завис платёж?", icon: "⏳" },
     { title: "Пригласи друга и заработай", icon: "👥" },
